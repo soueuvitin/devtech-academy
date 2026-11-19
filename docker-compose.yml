@@ -1,0 +1,9 @@
+services:
+  web:
+    image: nginx:alpine
+    container_name: devtech-academy
+    ports:
+      - "8080:80"
+    volumes:
+      # Monta o projeto como volume: é só salvar o arquivo e recarregar a página
+      - ./:/usr/share/nginx/html:ro
