@@ -15,22 +15,26 @@ const atualizarRelatorio = () => {
 const exibirRelatorio = (titulo, linhas) => {
     resultadoRelatorio.innerHTML = '';
 
-    const tituloRelatorio = document.createElement('h4');
+    const tituloRelatorio = document.createElement('h3');
+    tituloRelatorio.setAttribute('class', 'h6 fw-bold');
     tituloRelatorio.appendChild(document.createTextNode(titulo));
     resultadoRelatorio.appendChild(tituloRelatorio);
 
     if (alunos.length === 0) {
         const aviso = document.createElement('p');
+        aviso.setAttribute('class', 'text-muted mb-0');
         aviso.appendChild(document.createTextNode('Nenhum aluno cadastrado.'));
         resultadoRelatorio.appendChild(aviso);
         return;
     }
 
     const lista = document.createElement('ul');
+    lista.setAttribute('class', 'list-group');
 
     // forEach: cria um <li> para cada linha do relatório
     linhas.forEach(linha => {
         const item = document.createElement('li');
+        item.setAttribute('class', 'list-group-item');
         item.appendChild(document.createTextNode(linha));
         lista.appendChild(item);
     });

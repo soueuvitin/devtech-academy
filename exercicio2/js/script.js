@@ -100,12 +100,30 @@ function criarCelula(texto) {
     return celula;
 }
 
-// Cria um botão com o texto e a função chamada no onclick
-function criarBotao(texto, acao) {
+// Cria um botão com o texto, as classes do Bootstrap e a função chamada no onclick
+function criarBotao(texto, classes, acao) {
     const botao = document.createElement('button');
     botao.appendChild(document.createTextNode(texto));
+    botao.setAttribute('class', classes);
     botao.setAttribute('onclick', acao);
     return botao;
+}
+
+// Cria a célula da situação com um badge do Bootstrap (verde ou vermelho)
+function criarCelulaSituacao(aluno) {
+    const celula = document.createElement('td');
+    const badge = document.createElement('span');
+
+    if (aluno.isAprovado()) {
+        badge.setAttribute('class', 'badge bg-success');
+        badge.appendChild(document.createTextNode('Aprovado'));
+    } else {
+        badge.setAttribute('class', 'badge bg-danger');
+        badge.appendChild(document.createTextNode('Reprovado'));
+    }
+
+    celula.appendChild(badge);
+    return celula;
 }
 
 // Monta novamente todas as linhas da tabela a partir do array
@@ -128,12 +146,12 @@ function renderizarTabela() {
         linha.appendChild(criarCelula(aluno.notaFinal.toFixed(1)));
 
         // Usa o método isAprovado() da classe para mostrar a situação
-        linha.appendChild(criarCelula(aluno.isAprovado() ? 'Aprovado' : 'Reprovado'));
+        linha.appendChild(criarCelulaSituacao(aluno));
 
         // 3. Cria a célula de ações com os botões Editar e Excluir
         const celulaAcoes = document.createElement('td');
-        celulaAcoes.appendChild(criarBotao('Editar', `editarAluno(${i})`));
-        celulaAcoes.appendChild(criarBotao('Excluir', `excluirAluno(${i})`));
+        celulaAcoes.appendChild(criarBotao('Editar', 'btn btn-sm btn-warning me-1', `editarAluno(${i})`));
+        celulaAcoes.appendChild(criarBotao('Excluir', 'btn btn-sm btn-danger', `excluirAluno(${i})`));
         linha.appendChild(celulaAcoes);
 
         // 4. Adiciona a linha na tabela

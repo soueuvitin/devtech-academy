@@ -77,10 +77,21 @@ const criarCelula = (texto) => {
     return celula;
 };
 
-const criarBotao = (texto) => {
+const criarBotao = (texto, classes) => {
     const botao = document.createElement('button');
     botao.appendChild(document.createTextNode(texto));
+    botao.setAttribute('class', classes);
     return botao;
+};
+
+// Célula da situação com um badge do Bootstrap (verde ou vermelho)
+const criarCelulaSituacao = (aluno) => {
+    const celula = document.createElement('td');
+    const badge = document.createElement('span');
+    badge.setAttribute('class', aluno.isAprovado() ? 'badge bg-success' : 'badge bg-danger');
+    badge.appendChild(document.createTextNode(aluno.isAprovado() ? 'Aprovado' : 'Reprovado'));
+    celula.appendChild(badge);
+    return celula;
 };
 
 const renderizarTabela = () => {
@@ -93,11 +104,11 @@ const renderizarTabela = () => {
         linha.appendChild(criarCelula(aluno.idade));
         linha.appendChild(criarCelula(aluno.curso));
         linha.appendChild(criarCelula(aluno.notaFinal.toFixed(1)));
-        linha.appendChild(criarCelula(aluno.isAprovado() ? 'Aprovado' : 'Reprovado'));
+        linha.appendChild(criarCelulaSituacao(aluno));
 
         const celulaAcoes = document.createElement('td');
-        const botaoEditar = criarBotao('Editar');
-        const botaoExcluir = criarBotao('Excluir');
+        const botaoEditar = criarBotao('Editar', 'btn btn-sm btn-warning me-1');
+        const botaoExcluir = criarBotao('Excluir', 'btn btn-sm btn-danger');
 
         // Evento do botão Editar (função anônima)
         botaoEditar.addEventListener('click', function () {

@@ -103,10 +103,11 @@ function criarCelula(texto) {
     return celula;
 }
 
-// Cria um botão com o texto e a função chamada no onclick
-function criarBotao(texto, acao) {
+// Cria um botão com o texto, as classes do Bootstrap e a função chamada no onclick
+function criarBotao(texto, classes, acao) {
     const botao = document.createElement('button');
     botao.appendChild(document.createTextNode(texto));
+    botao.setAttribute('class', classes);
     botao.setAttribute('onclick', acao);
     return botao;
 }
@@ -132,8 +133,8 @@ function renderizarTabela() {
 
         // 3. Cria a célula de ações com os botões Editar e Excluir
         const celulaAcoes = document.createElement('td');
-        celulaAcoes.appendChild(criarBotao('Editar', `editarAluno(${i})`));
-        celulaAcoes.appendChild(criarBotao('Excluir', `excluirAluno(${i})`));
+        celulaAcoes.appendChild(criarBotao('Editar', 'btn btn-sm btn-warning me-1', `editarAluno(${i})`));
+        celulaAcoes.appendChild(criarBotao('Excluir', 'btn btn-sm btn-danger', `excluirAluno(${i})`));
         linha.appendChild(celulaAcoes);
 
         // 4. Adiciona a linha na tabela
